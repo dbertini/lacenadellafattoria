@@ -35,6 +35,6 @@ jobs:
               --include-glob '*.html' \
               --exclude-glob '.git/*' \
               --exclude-glob '.github/*' \
-              ./ /www/;
+              ./ /;
             bye
           "

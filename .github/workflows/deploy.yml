@@ -1,0 +1,30 @@
+name: Deploy to Altervista
+
+on:
+  pull_request:
+    types: [closed] # esegue quando la PR viene chiusa
+  push:
+    branches:
+      - main  # opzionale, se vuoi deploy automatico anche su push su main
+
+jobs:
+  deploy:
+    if: github.event.pull_request.merged == true  # esegue solo se PR è stata unita
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install lftp
+        run: sudo apt-get update && sudo apt-get install -y lftp
+
+      - name: Deploy via FTP
+        env:
+          FTP_HOST: ${{ secrets.ALTERVISTA_HOST }}
+          FTP_USER: ${{ secrets.ALTERVISTA_USER }}
+          FTP_PASSWORD: ${{ secrets.ALTERVISTA_PASSWORD }}
+        run: |
+          lftp -c "
+          open -u $FTP_USER,$FTP_PASSWORD $FTP_HOST;
+          mirror -R --delete --verbose ./ /www/
+          "

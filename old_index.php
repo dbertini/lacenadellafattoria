@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Benvenuto in GeoTriangulator - Triangolazione Coordinate Avanzata</title>
+    <title>GeoTriangulator - Sistema Sondaggi</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -214,8 +214,6 @@
         .feature-card:nth-child(2) { border-top-color: #48bb78; }
         .feature-card:nth-child(3) { border-top-color: #ed8936; }
         .feature-card:nth-child(4) { border-top-color: #9f7aea; }
-        .feature-card:nth-child(5) { border-top-color: #f56565; }
-        .feature-card:nth-child(6) { border-top-color: #38b2ac; }
         
         .feature-card:hover {
             transform: translateY(-10px);
@@ -229,8 +227,6 @@
         .feature-card:nth-child(2) .feature-icon { color: #48bb78; }
         .feature-card:nth-child(3) .feature-icon { color: #ed8936; }
         .feature-card:nth-child(4) .feature-icon { color: #9f7aea; }
-        .feature-card:nth-child(5) .feature-icon { color: #f56565; }
-        .feature-card:nth-child(6) .feature-icon { color: #38b2ac; }
         
         .feature-card h3 {
             color: #4a5568;
@@ -459,13 +455,11 @@
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <div class="logo">🌍 GeoTriangulator</div>
+            <div class="logo">🗳️ GeoTriangulator Sondaggi</div>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
-                <li><a href="troviamoci.php">🎯 Troviamoci</a></li>
                 <li><a href="sondaggi.php">🗳️ Sondaggi</a></li>
                 <li><a href="risultati.php">📊 Risultati</a></li>
-                <li><a href="#features">Funzionalità</a></li>
                 <li><a href="admin.php">🛠️ Admin</a></li>
             </ul>
         </div>
@@ -479,11 +473,11 @@
             <div class="shape"></div>
         </div>
         <div class="hero-content">
-            <h1>Benvenuto in GeoTriangulator</h1>
-            <p>La piattaforma più avanzata per la triangolazione di coordinate geografiche e sondaggi intelligenti. Trova il punto perfetto per i tuoi incontri e prendi decisioni collaborative utilizzando algoritmi di geolocalizzazione precisi e intuitivi.</p>
+            <h1>Sistema Sondaggi Avanzato</h1>
+            <p>Crea, gestisci e analizza sondaggi con la nostra piattaforma intuitiva e potente. Raccogli opinioni, prendi decisioni informate e coinvolgi la tua community.</p>
             <div class="cta-buttons">
-                <a href="troviamoci.php" class="cta-button cta-primary">🎯 Triangolazione Geografica</a>
-                <a href="sondaggi.php" class="cta-button cta-secondary">🗳️ Partecipa ai Sondaggi</a>
+                <a href="sondaggi.php" class="cta-button cta-primary">🗳️ Partecipa ai Sondaggi</a>
+                <a href="risultati.php" class="cta-button cta-secondary">📈 Vedi i Risultati</a>
             </div>
         </div>
     </section>
@@ -492,20 +486,50 @@
     <section class="stats">
         <div class="stats-container">
             <div class="stats-grid">
+                <?php
+                require_once 'config.php';
+                try {
+                    $pdo = getDBConnection();
+                    
+                    // Conta sondaggi totali
+                    $stmt = $pdo->query("SELECT COUNT(*) FROM sondaggi");
+                    $totale_sondaggi = $stmt->fetchColumn();
+                    
+                    // Conta sondaggi attivi
+                    $stmt = $pdo->query("SELECT COUNT(*) FROM sondaggi WHERE attivo = 1 AND (data_scadenza IS NULL OR data_scadenza > NOW())");
+                    $sondaggi_attivi = $stmt->fetchColumn();
+                    
+                    // Conta voti totali
+                    $stmt = $pdo->query("SELECT COUNT(*) FROM voti");
+                    $voti_totali = $stmt->fetchColumn();
+                    
+                    // Conta partecipanti unici
+                    $stmt = $pdo->query("SELECT COUNT(DISTINCT CONCAT(nome_votante, COALESCE(email_votante, ''))) FROM voti");
+                    $partecipanti_unici = $stmt->fetchColumn();
+                    
+                } catch (Exception $e) {
+                    // Valori di fallback se il database non è disponibile
+                    $totale_sondaggi = 0;
+                    $sondaggi_attivi = 0;
+                    $voti_totali = 0;
+                    $partecipanti_unici = 0;
+                }
+                ?>
+                
                 <div class="stat-item">
-                    <span class="stat-number" data-target="0">0</span>
+                    <span class="stat-number"><?php echo $totale_sondaggi; ?></span>
                     <span class="stat-label">Sondaggi Totali</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number" data-target="0">0</span>
+                    <span class="stat-number"><?php echo $sondaggi_attivi; ?></span>
                     <span class="stat-label">Sondaggi Attivi</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number" data-target="0">0</span>
+                    <span class="stat-number"><?php echo $voti_totali; ?></span>
                     <span class="stat-label">Voti Raccolti</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number" data-target="0">0</span>
+                    <span class="stat-number"><?php echo $partecipanti_unici; ?></span>
                     <span class="stat-label">Partecipanti</span>
                 </div>
             </div>
@@ -515,23 +539,8 @@
     <!-- Features Section -->
     <section class="features" id="features">
         <div class="features-container">
-            <h2>Funzionalità Complete</h2>
+            <h2>Funzionalità Principali</h2>
             <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🎯</div>
-                    <h3>Triangolazione Precisa</h3>
-                    <p>Algoritmi avanzati per calcolare il punto ottimale equidistante da tutti i partecipanti. Massima precisione garantita.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🗺️</div>
-                    <h3>Mappe Interattive</h3>
-                    <p>Visualizza i risultati su mappe dettagliate con markers personalizzati e informazioni sui ristoranti nelle vicinanze.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🍽️</div>
-                    <h3>Suggerimenti Intelligenti</h3>
-                    <p>Trova automaticamente ristoranti e luoghi di interesse nel punto centrale calcolato. Perfetto per organizzare incontri.</p>
-                </div>
                 <div class="feature-card">
                     <div class="feature-icon">🗳️</div>
                     <h3>Sondaggi Intuitivi</h3>
@@ -547,6 +556,11 @@
                     <h3>Gestione Partecipanti</h3>
                     <p>Traccia chi ha partecipato, previeni voti duplicati e mantieni la trasparenza del processo.</p>
                 </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚙️</div>
+                    <h3>Pannello Admin</h3>
+                    <p>Gestisci tutti i sondaggi da un'unica dashboard. Attiva, disattiva e monitora facilmente.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -556,21 +570,110 @@
         <div class="recent-polls-container">
             <h2>📈 Sondaggi Recenti</h2>
             <div class="polls-grid">
-                <div class="poll-card" style="grid-column: 1/-1; text-align: center; padding: 60px 30px;">
-                    <h3 style="color: #4a5568; margin-bottom: 15px;">🤔 Nessun sondaggio disponibile</h3>
-                    <p style="color: #718096; margin-bottom: 25px;">Inizia creando il primo sondaggio o configura il database per visualizzare i sondaggi esistenti!</p>
-                    <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-                        <a href="admin.php" class="btn-primary btn-small" style="max-width: 200px; display: inline-block;">➕ Crea Sondaggio</a>
-                        <a href="sondaggi.php" class="btn-success btn-small" style="max-width: 200px; display: inline-block;">🗳️ Vai ai Sondaggi</a>
-                    </div>
-                </div>
+                <?php
+                if (isset($pdo)) {
+                    try {
+                        // Ottieni gli ultimi 3 sondaggi con i risultati
+                        $stmt = $pdo->query("
+                            SELECT 
+                                s.id,
+                                s.titolo,
+                                s.descrizione,
+                                s.data_creazione,
+                                s.data_scadenza,
+                                s.attivo,
+                                COUNT(v.id) as totale_voti,
+                                (SELECT os.testo_opzione 
+                                 FROM opzioni_sondaggio os 
+                                 LEFT JOIN voti v2 ON os.id = v2.opzione_id 
+                                 WHERE os.sondaggio_id = s.id 
+                                 GROUP BY os.id 
+                                 ORDER BY COUNT(v2.id) DESC 
+                                 LIMIT 1) as opzione_vincente,
+                                (SELECT COUNT(v2.id) 
+                                 FROM opzioni_sondaggio os 
+                                 LEFT JOIN voti v2 ON os.id = v2.opzione_id 
+                                 WHERE os.sondaggio_id = s.id 
+                                 GROUP BY os.id 
+                                 ORDER BY COUNT(v2.id) DESC 
+                                 LIMIT 1) as voti_vincente
+                            FROM sondaggi s 
+                            LEFT JOIN voti v ON s.id = v.sondaggio_id 
+                            GROUP BY s.id 
+                            ORDER BY s.data_creazione DESC 
+                            LIMIT 3
+                        ");
+                        
+                        $sondaggi_recenti = $stmt->fetchAll();
+                        
+                        if (empty($sondaggi_recenti)) {
+                            echo '<div class="poll-card" style="grid-column: 1/-1; text-align: center; padding: 60px 30px;">
+                                    <h3 style="color: #4a5568; margin-bottom: 15px;">🤔 Nessun sondaggio disponibile</h3>
+                                    <p style="color: #718096; margin-bottom: 25px;">Inizia creando il primo sondaggio!</p>
+                                    <a href="admin.php" class="btn-primary btn-small" style="max-width: 200px; display: inline-block;">➕ Crea Sondaggio</a>
+                                  </div>';
+                        } else {
+                            foreach ($sondaggi_recenti as $sondaggio) {
+                                $isAttivo = isSondaggioAttivo($sondaggio);
+                                $statusClass = $isAttivo ? 'status-attivo' : 'status-scaduto';
+                                $statusText = $isAttivo ? 'Attivo' : 'Scaduto';
+                                
+                                echo '<div class="poll-card">
+                                        <h3 class="poll-title">' . htmlspecialchars($sondaggio['titolo']) . '</h3>
+                                        <div class="poll-meta">
+                                            <span>📅 ' . date('d/m/Y', strtotime($sondaggio['data_creazione'])) . '</span>
+                                            <span class="status-badge ' . $statusClass . '">' . $statusText . '</span>
+                                        </div>';
+                                
+                                if ($sondaggio['totale_voti'] > 0 && $sondaggio['opzione_vincente']) {
+                                    echo '<div class="poll-winner">
+                                            <div class="poll-winner-title">🏆 Opzione in testa:</div>
+                                            <div class="poll-winner-text">"' . htmlspecialchars($sondaggio['opzione_vincente']) . '"</div>
+                                            <div style="color: #718096; font-size: 0.9em; margin-top: 5px;">' . $sondaggio['voti_vincente'] . ' voti su ' . $sondaggio['totale_voti'] . ' totali</div>
+                                          </div>';
+                                } else {
+                                    echo '<div style="background: #fef5e7; border: 2px solid #f6ad55; border-radius: 12px; padding: 15px; margin-bottom: 20px; text-align: center; color: #744210;">
+                                            📭 Nessun voto ancora
+                                          </div>';
+                                }
+                                
+                                echo '<div class="poll-actions">
+                                        <a href="risultati.php?id=' . $sondaggio['id'] . '" class="btn-small btn-primary">📈 Risultati</a>';
+                                
+                                if ($isAttivo) {
+                                    echo '<a href="sondaggi.php" class="btn-small btn-success">🗳️ Vota</a>';
+                                }
+                                
+                                echo '</div></div>';
+                            }
+                        }
+                        
+                    } catch (Exception $e) {
+                        echo '<div class="poll-card" style="grid-column: 1/-1; text-align: center; padding: 60px 30px; border: 2px solid #fed7d7; background: #fef5f5;">
+                                <h3 style="color: #742a2a; margin-bottom: 15px;">⚠️ Errore di connessione</h3>
+                                <p style="color: #742a2a;">Impossibile caricare i sondaggi. Verifica la configurazione del database.</p>
+                              </div>';
+                    }
+                } else {
+                    echo '<div class="poll-card" style="grid-column: 1/-1; text-align: center; padding: 60px 30px;">
+                            <h3 style="color: #4a5568; margin-bottom: 15px;">🔧 Configurazione necessaria</h3>
+                            <p style="color: #718096;">Configura il database per iniziare a utilizzare i sondaggi.</p>
+                          </div>';
+                }
+                ?>
             </div>
+            
+            <?php if (isset($sondaggi_recenti) && count($sondaggi_recenti) >= 3): ?>
+                <div style="text-align: center; margin-top: 40px;">
+                    <a href="risultati.php" class="cta-button cta-secondary">📊 Vedi Tutti i Risultati</a>
+                </div>
+            <?php endif; ?>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
-        <p>&copy; 2025 GeoTriangulator. Sistema completo di triangolazione geografica e sondaggi intelligenti. Creato con passione per semplificare i vostri incontri e decisioni collaborative. 🚀</p>
+        <p>&copy; 2025 GeoTriangulator Sondaggi. Sistema di votazione intelligente per decisioni migliori. 🚀</p>
     </footer>
 
     <script>
@@ -606,7 +709,7 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         const counter = entry.target;
-                        const target = parseInt(counter.getAttribute('data-target') || counter.textContent);
+                        const target = parseInt(counter.textContent);
                         let current = 0;
                         const increment = target / 50;
                         
@@ -653,27 +756,7 @@
             });
             
             cards.forEach(card => cardObserver.observe(card));
-
-            // Simula il caricamento delle statistiche dal database
-            loadStatistics();
         });
-
-        // Funzione per simulare il caricamento delle statistiche
-        function loadStatistics() {
-            // Simula valori di esempio - in produzione questi arriverebbero dal database
-            const stats = [
-                { selector: '.stat-number:nth-child(1)', value: 12 },
-                { selector: '.stat-number:nth-child(1)', value: 8 },
-                { selector: '.stat-number:nth-child(1)', value: 47 },
-                { selector: '.stat-number:nth-child(1)', value: 23 }
-            ];
-
-            // Aggiorna i data-target per l'animazione
-            document.querySelectorAll('.stat-number').forEach((el, index) => {
-                const value = Math.floor(Math.random() * 50); // Valori casuali per la demo
-                el.setAttribute('data-target', value);
-            });
-        }
 
         // Animazione al caricamento della pagina
         window.addEventListener('load', () => {

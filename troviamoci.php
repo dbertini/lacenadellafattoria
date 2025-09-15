@@ -3,15 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Triangolazione Coordinate Avanzata</title>
+    <title>Benvenuto in GeoTriangulator - Triangolazione Coordinate Avanzata</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: 0;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
         }
+        
+        /* Navigation Menu */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 15px 0;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+        nav .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+        }
+        .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            background: linear-gradient(135deg, #4299e1, #3182ce);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 30px;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #4a5568;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 8px 16px;
+            border-radius: 20px;
+        }
+        .nav-links a:hover {
+            background: linear-gradient(135deg, #4299e1, #3182ce);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(66, 153, 225, 0.3);
+        }
+        .nav-links a.active {
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+            box-shadow: 0 5px 15px rgba(72, 187, 120, 0.3);
+        }
+        
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -19,6 +75,8 @@
             border-radius: 15px;
             padding: 30px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            margin-top: 100px;
+            margin-bottom: 20px;
         }
         h1 {
             text-align: center;
@@ -263,6 +321,18 @@
         }
         
         @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 20px;
+                padding: 0 20px;
+            }
+            .nav-links {
+                gap: 15px;
+            }
+            .container {
+                margin-top: 120px;
+                padding: 20px;
+            }
             .input-group {
                 grid-template-columns: 1fr;
             }
@@ -274,6 +344,19 @@
     </style>
 </head>
 <body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">🌍 GeoTriangulator</div>
+            <ul class="nav-links">
+                <li><a href="index.php">Home</a></li>
+                <li><a href="troviamoci.php" class="active">🎯 Troviamoci</a></li>
+                <li><a href="#features">Funzionalità</a></li>
+                <li><a href="#about">Chi Siamo</a></li>
+            </ul>
+        </div>
+    </nav>
+
     <div class="container">
         <h1>🗺️ Triangolazione Coordinate Avanzata</h1>
         
@@ -305,13 +388,19 @@
         </div>
 
         <div class="triangulation-result">
+            <div style="font-size: 3em; margin-bottom: 10px;">🗺️</div>
             <h2>📍 Punto Centrale Triangolato</h2>
             <div class="center-coords" id="center-coords">
                 Calcolo in corso...
             </div>
             <div id="center-description"></div>
         </div>
-
+        <div class="controls">
+            <button class="btn" onclick="recalculateCenter()">🔄 Ricalcola Centro</button>
+            <button class="btn" onclick="showOnGoogleMaps()">🗺️ Centro su Google Maps</button>
+            <button class="btn" onclick="copyCoordinates()">📋 Copia Coordinate</button>
+            <button class="btn danger" onclick="clearAllLocations()">🗑️ Elimina Tutto</button>
+        </div>
         <!-- Sezione ristoranti -->
         <div class="restaurants-section">
             <h2>🍽️ Ristoranti nella Zona</h2>
@@ -333,16 +422,11 @@
             <div id="restaurants-results"></div>
         </div>
 
-        <div class="controls">
-            <button class="btn" onclick="recalculateCenter()">🔄 Ricalcola Centro</button>
-            <button class="btn" onclick="showOnGoogleMaps()">🗺️ Centro su Google Maps</button>
-            <button class="btn" onclick="copyCoordinates()">📋 Copia Coordinate</button>
-            <button class="btn danger" onclick="clearAllLocations()">🗑️ Elimina Tutto</button>
-        </div>
+       
 
-        <div class="map-container">
+        <!-- <div class="map-container">
             <div id="map"></div>
-        </div>
+        </div> -->
     </div>
 
     <script>

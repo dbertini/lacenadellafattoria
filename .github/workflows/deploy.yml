@@ -24,7 +24,11 @@ jobs:
           FTP_USER: ${{ secrets.ALTERVISTA_USER }}
           FTP_PASSWORD: ${{ secrets.ALTERVISTA_PASSWORD }}
         run: |
-          lftp -c "
-          open -u $FTP_USER,$FTP_PASSWORD $FTP_HOST;
-          mirror -R --delete --verbose ./ /www/
+          lftp -e "
+            set ssl:verify-certificate no;
+            set ftp:ssl-force true;
+            set ftp:ssl-protect-data true;
+            open -u $FTP_USER,$FTP_PASSWORD $FTP_HOST;
+            mirror -R --delete --verbose ./ /www/;
+            bye
           "

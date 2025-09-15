@@ -349,7 +349,7 @@
         <div class="nav-container">
             <div class="logo">🌍 GeoTriangulator</div>
             <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
+                <li><a href="index.php">Home</a></li>
                 <li><a href="troviamoci.php" class="active">🎯 Troviamoci</a></li>
                 <li><a href="#features">Funzionalità</a></li>
                 <li><a href="#about">Chi Siamo</a></li>
@@ -388,13 +388,19 @@
         </div>
 
         <div class="triangulation-result">
+            <div style="font-size: 3em; margin-bottom: 10px;">🗺️</div>
             <h2>📍 Punto Centrale Triangolato</h2>
             <div class="center-coords" id="center-coords">
                 Calcolo in corso...
             </div>
             <div id="center-description"></div>
         </div>
-
+        <div class="controls">
+            <button class="btn" onclick="recalculateCenter()">🔄 Ricalcola Centro</button>
+            <button class="btn" onclick="showOnGoogleMaps()">🗺️ Centro su Google Maps</button>
+            <button class="btn" onclick="copyCoordinates()">📋 Copia Coordinate</button>
+            <button class="btn danger" onclick="clearAllLocations()">🗑️ Elimina Tutto</button>
+        </div>
         <!-- Sezione ristoranti -->
         <div class="restaurants-section">
             <h2>🍽️ Ristoranti nella Zona</h2>
@@ -416,16 +422,11 @@
             <div id="restaurants-results"></div>
         </div>
 
-        <div class="controls">
-            <button class="btn" onclick="recalculateCenter()">🔄 Ricalcola Centro</button>
-            <button class="btn" onclick="showOnGoogleMaps()">🗺️ Centro su Google Maps</button>
-            <button class="btn" onclick="copyCoordinates()">📋 Copia Coordinate</button>
-            <button class="btn danger" onclick="clearAllLocations()">🗑️ Elimina Tutto</button>
-        </div>
+       
 
-        <div class="map-container">
+        <!-- <div class="map-container">
             <div id="map"></div>
-        </div>
+        </div> -->
     </div>
 
     <script>

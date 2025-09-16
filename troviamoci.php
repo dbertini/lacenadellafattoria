@@ -341,21 +341,18 @@
                 align-items: center;
             }
         }
+        /* Footer */
+        .footer {
+            background: rgba(26, 32, 44, 0.9);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            backdrop-filter: blur(10px);
+        }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-container">
-            <div class="logo">🌍 GeoTriangulator</div>
-            <ul class="nav-links">
-                <li><a href="index.php">Home</a></li>
-                <li><a href="troviamoci.php" class="active">🎯 Troviamoci</a></li>
-                <li><a href="#features">Funzionalità</a></li>
-                <li><a href="#about">Chi Siamo</a></li>
-            </ul>
-        </div>
-    </nav>
+    <?php require 'menu.php'; ?>
 
     <div class="container">
         <h1>🗺️ Triangolazione Coordinate Avanzata</h1>
@@ -424,11 +421,9 @@
 
        
 
-        <!-- <div class="map-container">
-            <div id="map"></div>
-        </div> -->
+        
     </div>
-
+<?php require 'footer.php'; ?>
     <script>
         // Coordinate iniziali
         let locations = [

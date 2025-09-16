@@ -292,6 +292,14 @@
             font-size: 1.5em;
             margin-bottom: 15px;
         }
+        /* Footer */
+        .footer {
+            background: rgba(26, 32, 44, 0.9);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            backdrop-filter: blur(10px);
+        }
         
         @media (max-width: 768px) {
             .container {
@@ -312,16 +320,7 @@
     </style>
 </head>
 <body>
-    <nav>
-        <div class="nav-container">
-            <div class="logo">🗳️ GeoTriangulator Sondaggi</div>
-            <ul class="nav-links">
-                <li><a href="index.php">🏠 Home</a></li>
-                <li><a href="risultati.php">📈 Risultati</a></li>
-                <li><a href="admin.php">🛠️ Admin</a></li>
-            </ul>
-        </div>
-    </nav>
+    <?php require 'menu.php'; ?>
 
     <div class="container">
         <div class="header">
@@ -485,7 +484,7 @@
             <?php endforeach; ?>
         <?php endif; ?>
     </div>
-
+<?php require 'footer.php'; ?>
     <script>
         function selectOption(label) {
             // Rimuovi la selezione da tutte le opzioni dello stesso form

@@ -273,19 +273,18 @@
                 margin-top: 10px;
             }
         }
+        /* Footer */
+        .footer {
+            background: rgba(26, 32, 44, 0.9);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            backdrop-filter: blur(10px);
+        }
     </style>
 </head>
 <body>
-    <nav>
-        <div class="nav-container">
-            <div class="logo">🗳️ Admin Sondaggi</div>
-            <ul class="nav-links">
-                <li><a href="index.php">🏠 Home</a></li>
-                <li><a href="sondaggi.php">📊 Sondaggi</a></li>
-                <li><a href="risultati.php">📈 Risultati</a></li>
-            </ul>
-        </div>
-    </nav>
+    <?php require 'menu.php'; ?>
 
     <div class="container">
         <div class="admin-header">
@@ -437,7 +436,7 @@
             </div>
         </div>
     </div>
-
+<?php require 'footer.php'; ?>
     <script>
         let optionCount = 2;
 

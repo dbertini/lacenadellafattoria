@@ -361,19 +361,18 @@
                 grid-template-columns: 1fr;
             }
         }
+        /* Footer */
+        .footer {
+            background: rgba(26, 32, 44, 0.9);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            backdrop-filter: blur(10px);
+        }
     </style>
 </head>
 <body>
-    <nav>
-        <div class="nav-container">
-            <div class="logo">📊 Risultati Sondaggi</div>
-            <ul class="nav-links">
-                <li><a href="index.php">🏠 Home</a></li>
-                <li><a href="sondaggi.php">🗳️ Sondaggi</a></li>
-                <li><a href="admin.php">🛠️ Admin</a></li>
-            </ul>
-        </div>
-    </nav>
+    <?php require 'menu.php'; ?>
 
     <div class="container">
         <?php
@@ -634,7 +633,7 @@
             <?php endif; ?>
         <?php } ?>
     </div>
-
+<?php require 'footer.php'; ?>
     <script>
         // Animazione delle barre di progresso
         window.addEventListener('load', function() {

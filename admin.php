@@ -183,7 +183,7 @@ if (isset($_GET['logout'])) {
                         
                         <p><strong><?php echo $sondaggio['totale_voti']; ?></strong> voti ricevuti su <strong><?php echo $sondaggio['totale_opzioni']; ?></strong> opzioni</p>
                         
-                        <a href="risultati.php?id=<?php echo $sondaggio['id']; ?>" class="btn">📊 Vedi Risultati</a>
+                        <a href="risultati_admin.php?id=<?php echo $sondaggio['id']; ?>" class="btn">📊 Vedi Risultati</a>
                         <a href="?toggle=<?php echo $sondaggio['id']; ?>" class="btn btn-secondary">
                             <?php echo $sondaggio['attivo'] ? '🔒 Disattiva' : '🔓 Attiva'; ?>
                         </a>

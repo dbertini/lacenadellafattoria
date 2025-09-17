@@ -311,4 +311,34 @@
                 gap: 10px;
             }
         }
+
+
+        .option-check-text {
+            color: #4a5568;          /* testo grigio scuro */
+            font-weight: 600;
+            font-size: 1.1em;
+            padding-left: 35px;       /* spazio per il quadrato a sinistra */
+            position: relative;
+        }
+
+        .option-check-text::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border: 2px solid #cbd5e0;   /* bordo grigio chiaro */
+            border-radius: 4px;          /* piccolo raggio → angoli leggermente arrotondati */
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .option-check-item.selected .option-check-text::before {
+            border-color: #4299e1;       /* blu quando selezionato */
+            background: #4299e1;
+            box-shadow: inset 0 0 0 4px white;  /* effetto “spunta” interna */
+        }
+
     </style>

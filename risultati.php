@@ -503,12 +503,7 @@
                                 ?>
                                 
                                 <div class="voters-section">
-                                    <div class="voters-title">Hanno votato (<?php echo count($voters); ?>):</div>
-                                    <div class="voters-list">
-                                        <?php foreach ($voters as $voter): ?>
-                                            <span class="voter-badge"><?php echo htmlspecialchars($voter['nome_votante']); ?></span>
-                                        <?php endforeach; ?>
-                                    </div>
+                                    <div class="voters-title">Hanno votato <?php echo count($voters); ?> partecipanti</div>
                                 </div>
                             <?php endif; ?>
                         </div>
@@ -540,7 +535,7 @@
                     s.data_creazione,
                     s.data_scadenza,
                     s.attivo,
-                    COUNT(v.id) as totale_voti,
+                    COUNT(distinct v.id) as totale_voti,
                     MAX(risultati.numero_voti) as voti_massimi,
                     MAX(risultati.percentuale) as percentuale_massima,
                     (SELECT os.testo_opzione 

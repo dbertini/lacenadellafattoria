@@ -346,7 +346,7 @@
 
         /* Alberghi */
         .alberghi-section {
-            background: linear-gradient(135deg, #79ed36ff, #20dd95ff);
+            background: linear-gradient(135deg, #4299e1, #3182ce);
             color: white;
             padding: 25px;
             border-radius: 15px;

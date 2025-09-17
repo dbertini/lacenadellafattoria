@@ -86,10 +86,10 @@
                     <option value="10000">Entro 10 km</option>
                     <option value="20000">Entro 20 km</option>
                 </select>
-                <button class="btn warning" onclick="searchAlberghi()">
+                <button class="btn success" onclick="searchAlberghi()">
                     🔍 Cerca Alberghi
                 </button>
-                <button class="btn warning" onclick="showAlberghiOnMap()">
+                <button class="btn success" onclick="showAlberghiOnMap()">
                     🗺️ Visualizza Alberghi su Mappa
                 </button>
             </div>

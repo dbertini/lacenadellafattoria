@@ -343,4 +343,28 @@
             padding: 40px 20px;
             backdrop-filter: blur(10px);
         }
+
+        /* Alberghi */
+        .alberghi-section {
+            background: linear-gradient(135deg, #79ed36ff, #20dd95ff);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        .alberghi-section h2 {
+            margin: 0 0 20px 0;
+            font-size: 1.8em;
+            text-align: center;
+        }
+
+        .alberghi-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
     </style>

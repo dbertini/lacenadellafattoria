@@ -216,17 +216,14 @@
                                     $opzioni = $stmt_options->fetchAll();
                                     
                                     foreach ($opzioni as $opzione): ?>
+                                    <label class="option-item" onclick="selectOption(this, '<?php echo $sondaggio['tipo_selezione']; ?>')">
                                         <?php if ($sondaggio['tipo_selezione'] === 'multipla'): ?>
-                                                <label class="option-check-item" onclick="selectOption(this, '<?php echo $sondaggio['tipo_selezione']; ?>')">
-                                                <input type="checkbox" name="opzioni_id[]" value="<?php echo $opzione['id']; ?>">
-                                                <div class="option-check-text"><?php echo htmlspecialchars($opzione['testo_opzione']); ?></div>
-                                            <?php else: ?>
-                                                <label class="option-item" onclick="selectOption(this, '<?php echo $sondaggio['tipo_selezione']; ?>')">
-                                                <input type="radio" name="opzione_id" value="<?php echo $opzione['id']; ?>" required>
-                                                <div class="option-text"><?php echo htmlspecialchars($opzione['testo_opzione']); ?></div>
-                                            <?php endif; ?>
-                                            
-                                        </label>
+                                            <input type="checkbox" name="opzioni_id[]" value="<?php echo $opzione['id']; ?>">
+                                        <?php else: ?>
+                                            <input type="radio" name="opzione_id" value="<?php echo $opzione['id']; ?>" required>
+                                        <?php endif; ?>
+                                        <div class="option-text"><?php echo htmlspecialchars($opzione['testo_opzione']); ?></div>
+                                    </label>
                                     <?php endforeach; ?>
                                 </div>
                             </div>

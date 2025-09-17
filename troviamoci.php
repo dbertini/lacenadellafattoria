@@ -433,14 +433,20 @@ async function searchAlberghi() {
 		  motel: "🏩",
 		  resort: "🛎️",
 		  guest_house: "🏠",
-		  hostel: "🛌"
+		  hostel: "🛌",
+          fast_food: "🍕",
+		  food_court: "🍝",
+		  restaurant: "🍴",
+		  bar: "🥐",
+		  pub: "🍻",
+		  cafe: "☕"
 		};
 
 		const listHtml = elements
 		  .filter(el => el.tags?.name) // scarta i "Locale senza nome"
 		  .map(el => {
 			const type = el.tags?.amenity || "sconosciuto";
-			const icon = iconByAmenity[type] || "🍽️"; // icona di fallback
+			const icon = iconByAmenity[type] || "🏨"; // icona di fallback
 			const name = el.tags.name;
 			return `
 			  <div style="background: rgba(255,255,255,0.1); padding: 8px; border-radius: 5px; text-align: center;">

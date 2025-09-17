@@ -275,4 +275,56 @@
             padding: 40px 20px;
             backdrop-filter: blur(10px);
         }
+        .tipo-selector {
+            margin-top: 10px;
+        }
+        
+        .tipo-selector summary {
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+        
+        .inline-form {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f5f5f5;
+            border-radius: 5px;
+        }
+        
+        .inline-form select {
+            width: auto;
+            margin: 0;
+        }
+        
+        .help-text {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .help-multipla {
+            color: #2196F3;
+        }
+        
+        .help-singola {
+            color: #4CAF50;
+        }
+        
+        .sondaggio-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .btn-tertiary {
+            background-color: #6c757d;
+            color: white;
+            font-size: 0.85em;
+            padding: 5px 10px;
+        }
+        
+        .btn-tertiary:hover {
+            background-color: #5a6268;
+        }
     </style>

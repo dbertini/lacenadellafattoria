@@ -4,320 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sondaggi - GeoTriangulator</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
-        
-        nav {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 15px 0;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-        }
-        nav .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 30px;
-        }
-        .logo {
-            font-size: 1.8em;
-            font-weight: bold;
-            background: linear-gradient(135deg, #4299e1, #3182ce);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .nav-links {
-            display: flex;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            gap: 30px;
-        }
-        .nav-links a {
-            text-decoration: none;
-            color: #4a5568;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            padding: 8px 16px;
-            border-radius: 20px;
-        }
-        .nav-links a:hover {
-            background: linear-gradient(135deg, #4299e1, #3182ce);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(66, 153, 225, 0.3);
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 50px 20px;
-        }
-        
-        .header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 40px;
-            margin-bottom: 30px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        .header h1 {
-            color: #4a5568;
-            margin: 0 0 10px 0;
-            font-size: 2.5em;
-        }
-        .header p {
-            color: #718096;
-            margin: 0;
-            font-size: 1.2em;
-        }
-        
-        .sondaggio-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 40px;
-            margin-bottom: 30px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-        .sondaggio-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
-        }
-        
-        .sondaggio-title {
-            color: #4a5568;
-            font-size: 2em;
-            margin: 0 0 15px 0;
-            font-weight: 600;
-        }
-        .sondaggio-description {
-            color: #718096;
-            font-size: 1.1em;
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
-        .sondaggio-meta {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            margin-bottom: 30px;
-            font-size: 0.95em;
-            color: #718096;
-        }
-        .meta-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .vote-form {
-            border-top: 2px solid #e2e8f0;
-            padding-top: 30px;
-        }
-        .form-section {
-            margin-bottom: 25px;
-        }
-        .form-section h3 {
-            color: #4a5568;
-            margin: 0 0 20px 0;
-            font-size: 1.3em;
-        }
-        
-        .user-info {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        .form-group label {
-            display: block;
-            color: #4a5568;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-        .form-group input {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e2e8f0;
-            border-radius: 10px;
-            font-size: 1em;
-            transition: all 0.3s ease;
-            box-sizing: border-box;
-        }
-        .form-group input:focus {
-            outline: none;
-            border-color: #4299e1;
-            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
-        }
-        
-        .options-grid {
-            display: grid;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-        .option-item {
-            background: #f7fafc;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 20px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-        }
-        .option-item:hover {
-            border-color: #4299e1;
-            background: #ebf8ff;
-            transform: translateX(5px);
-        }
-        .option-item input[type="radio"] {
-            position: absolute;
-            opacity: 0;
-            cursor: pointer;
-        }
-        .option-item.selected {
-            border-color: #4299e1;
-            background: #ebf8ff;
-            box-shadow: 0 5px 15px rgba(66, 153, 225, 0.2);
-        }
-        .option-text {
-            color: #4a5568;
-            font-weight: 600;
-            font-size: 1.1em;
-            padding-left: 35px;
-            position: relative;
-        }
-        .option-text::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 20px;
-            height: 20px;
-            border: 2px solid #cbd5e0;
-            border-radius: 50%;
-            background: white;
-            transition: all 0.3s ease;
-        }
-        .option-item.selected .option-text::before {
-            border-color: #4299e1;
-            background: #4299e1;
-            box-shadow: inset 0 0 0 4px white;
-        }
-        
-        .btn {
-            background: linear-gradient(135deg, #4299e1, #3182ce);
-            color: white;
-            padding: 18px 40px;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.2em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-        }
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(66, 153, 225, 0.4);
-        }
-        .btn:disabled {
-            background: #cbd5e0;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-        
-        .alert {
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 25px;
-            font-weight: 600;
-        }
-        .alert-success {
-            background: #c6f6d5;
-            color: #22543d;
-            border: 2px solid #9ae6b4;
-        }
-        .alert-error {
-            background: #fed7d7;
-            color: #742a2a;
-            border: 2px solid #fc8181;
-        }
-        .alert-warning {
-            background: #fef5e7;
-            color: #744210;
-            border: 2px solid #f6ad55;
-        }
-        
-        .status-badge {
-            display: inline-block;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.9em;
-            font-weight: 600;
-        }
-        .status-attivo {
-            background: #c6f6d5;
-            color: #22543d;
-        }
-        .status-scaduto {
-            background: #fed7d7;
-            color: #742a2a;
-        }
-        
-        .no-sondaggi {
-            text-align: center;
-            padding: 60px 20px;
-            color: #718096;
-        }
-        .no-sondaggi h3 {
-            font-size: 1.5em;
-            margin-bottom: 15px;
-        }
-        /* Footer */
-        .footer {
-            background: rgba(26, 32, 44, 0.9);
-            color: white;
-            text-align: center;
-            padding: 40px 20px;
-            backdrop-filter: blur(10px);
-        }
-        
-        @media (max-width: 768px) {
-            .container {
-                padding: 30px 15px;
-            }
-            .sondaggio-card {
-                padding: 25px 20px;
-            }
-            .user-info {
-                grid-template-columns: 1fr;
-            }
-            .sondaggio-meta {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
-        }
-    </style>
+    <?php require 'styles/style_sondaggi.php'; ?>
 </head>
 <body>
     <?php require 'menu.php'; ?>
@@ -339,12 +26,11 @@
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_vote'])) {
             try {
                 $sondaggio_id = (int)$_POST['sondaggio_id'];
-                $opzione_id = (int)$_POST['opzione_id'];
                 $nome = sanitize($_POST['nome']);
                 $email = !empty($_POST['email']) ? sanitize($_POST['email']) : null;
                 
-                if (empty($nome) || empty($opzione_id)) {
-                    throw new Exception("Nome e selezione dell'opzione sono obbligatori.");
+                if (empty($nome)) {
+                    throw new Exception("Il nome è obbligatorio.");
                 }
                 
                 // Verifica se l'utente ha già votato
@@ -352,7 +38,7 @@
                     throw new Exception("Hai già partecipato a questo sondaggio.");
                 }
                 
-                // Verifica che il sondaggio sia ancora attivo
+                // Verifica che il sondaggio sia ancora attivo e ottieni il tipo
                 $stmt = $pdo->prepare("SELECT * FROM sondaggi WHERE id = ?");
                 $stmt->execute([$sondaggio_id]);
                 $sondaggio = $stmt->fetch();
@@ -361,12 +47,63 @@
                     throw new Exception("Il sondaggio non è più attivo.");
                 }
                 
-                // Inserisci il voto
-                $stmt = $pdo->prepare("INSERT INTO voti (sondaggio_id, opzione_id, nome_votante, email_votante, ip_address) VALUES (?, ?, ?, ?, ?)");
-                $stmt->execute([$sondaggio_id, $opzione_id, $nome, $email, getClientIP()]);
+                // Gestione opzioni selezionate (singola o multipla)
+                $opzioni_selezionate = [];
                 
-                $message = "🎉 Grazie per aver partecipato! Il tuo voto è stato registrato.";
-                $messageType = 'success';
+                if ($sondaggio['tipo_selezione'] === 'multipla') {
+                    // Scelta multipla - checkbox
+                    if (isset($_POST['opzioni_id']) && is_array($_POST['opzioni_id'])) {
+                        $opzioni_selezionate = array_map('intval', $_POST['opzioni_id']);
+                    }
+                } else {
+                    // Scelta singola - radio button
+                    if (isset($_POST['opzione_id']) && !empty($_POST['opzione_id'])) {
+                        $opzioni_selezionate = [(int)$_POST['opzione_id']];
+                    }
+                }
+                
+                if (empty($opzioni_selezionate)) {
+                    throw new Exception("Devi selezionare almeno un'opzione.");
+                }
+                
+                // Verifica che tutte le opzioni selezionate appartengano al sondaggio
+                $placeholders = str_repeat('?,', count($opzioni_selezionate) - 1) . '?';
+                $stmt = $pdo->prepare("SELECT COUNT(*) FROM opzioni_sondaggio WHERE sondaggio_id = ? AND id IN ($placeholders)");
+                $params = array_merge([$sondaggio_id], $opzioni_selezionate);
+                $stmt->execute($params);
+                
+                if ($stmt->fetchColumn() != count($opzioni_selezionate)) {
+                    throw new Exception("Una o più opzioni selezionate non sono valide.");
+                }
+                
+                // Inizia transazione per inserire tutti i voti
+                $pdo->beginTransaction();
+                
+                try {
+                    $stmt = $pdo->prepare("INSERT INTO voti (sondaggio_id, opzione_id, nome_votante, email_votante, ip_address) VALUES (?, ?, ?, ?, ?)");
+                    
+                    foreach ($opzioni_selezionate as $opzione_id) {
+                        $stmt->execute([$sondaggio_id, $opzione_id, $nome, $email, getClientIP()]);
+                    }
+                    
+                    $pdo->commit();
+                    
+                    $num_opzioni = count($opzioni_selezionate);
+                    $message = $num_opzioni > 1 
+                        ? "🎉 Grazie per aver partecipato! I tuoi $num_opzioni voti sono stati registrati."
+                        : "🎉 Grazie per aver partecipato! Il tuo voto è stato registrato.";
+                    $messageType = 'success';
+                    
+                    // Salva in sessione che l'utente ha votato
+                    if (!isset($_SESSION['voted_surveys'])) {
+                        $_SESSION['voted_surveys'] = [];
+                    }
+                    $_SESSION['voted_surveys'][] = $sondaggio_id;
+                    
+                } catch (Exception $e) {
+                    $pdo->rollBack();
+                    throw $e;
+                }
                 
             } catch (Exception $e) {
                 $message = "❌ " . $e->getMessage();
@@ -384,6 +121,7 @@
         // Ottieni tutti i sondaggi attivi
         $stmt = $pdo->query("
             SELECT s.*, 
+                   COUNT(DISTINCT v.nome_votante, v.email_votante) as totale_partecipanti,
                    COUNT(v.id) as totale_voti,
                    (SELECT COUNT(*) FROM opzioni_sondaggio WHERE sondaggio_id = s.id) as totale_opzioni
             FROM sondaggi s 
@@ -425,13 +163,22 @@
                         <?php endif; ?>
                         <div class="meta-item">
                             <span>👥</span>
-                            <span><?php echo $sondaggio['totale_voti']; ?> voti ricevuti</span>
+                            <span><?php echo $sondaggio['totale_partecipanti']; ?> partecipanti (<?php echo $sondaggio['totale_voti']; ?> voti totali)</span>
+                        </div>
+                        <div class="meta-item">
+                            <?php if ($sondaggio['tipo_selezione'] === 'multipla'): ?>
+                                <span>☑️</span>
+                                <span>Scelta multipla consentita</span>
+                            <?php else: ?>
+                                <span>🔘</span>
+                                <span>Scelta singola</span>
+                            <?php endif; ?>
                         </div>
                         <span class="status-badge status-attivo">🟢 Attivo</span>
                     </div>
 
                     <?php
-                    // Verifica se l'utente ha già votato (controllo base)
+                    // Verifica se l'utente ha già votato
                     $hasVoted = false;
                     if (isset($_SESSION['voted_surveys'])) {
                         $hasVoted = in_array($sondaggio['id'], $_SESSION['voted_surveys']);
@@ -461,16 +208,20 @@
                             </div>
 
                             <div class="form-section">
-                                <h3>🗳️ Scegli la tua opzione</h3>
-                                <div class="options-grid">
+                                <h3>🗳️ Scegli la tua opzione<?php echo $sondaggio['tipo_selezione'] === 'multipla' ? ' (puoi selezionarne più di una)' : ''; ?></h3>
+                                <div class="options-grid" data-tipo="<?php echo $sondaggio['tipo_selezione']; ?>">
                                     <?php
                                     $stmt_options = $pdo->prepare("SELECT * FROM opzioni_sondaggio WHERE sondaggio_id = ? ORDER BY ordine_visualizzazione");
                                     $stmt_options->execute([$sondaggio['id']]);
                                     $opzioni = $stmt_options->fetchAll();
                                     
                                     foreach ($opzioni as $opzione): ?>
-                                        <label class="option-item" onclick="selectOption(this)">
-                                            <input type="radio" name="opzione_id" value="<?php echo $opzione['id']; ?>" required>
+                                        <label class="option-item" onclick="selectOption(this, '<?php echo $sondaggio['tipo_selezione']; ?>')">
+                                            <?php if ($sondaggio['tipo_selezione'] === 'multipla'): ?>
+                                                <input type="checkbox" name="opzioni_id[]" value="<?php echo $opzione['id']; ?>">
+                                            <?php else: ?>
+                                                <input type="radio" name="opzione_id" value="<?php echo $opzione['id']; ?>" required>
+                                            <?php endif; ?>
                                             <div class="option-text"><?php echo htmlspecialchars($opzione['testo_opzione']); ?></div>
                                         </label>
                                     <?php endforeach; ?>
@@ -486,34 +237,66 @@
     </div>
 <?php require 'footer.php'; ?>
     <script>
-        function selectOption(label) {
-            // Rimuovi la selezione da tutte le opzioni dello stesso form
-            const form = label.closest('form');
-            const allOptions = form.querySelectorAll('.option-item');
-            allOptions.forEach(opt => opt.classList.remove('selected'));
+        function selectOption(label, tipo) {
+            const input = label.querySelector('input');
             
-            // Aggiungi la selezione all'opzione cliccata
-            label.classList.add('selected');
-            
-            // Seleziona il radio button
-            const radio = label.querySelector('input[type="radio"]');
-            radio.checked = true;
+            if (tipo === 'singola') {
+                // Rimuovi la selezione da tutte le opzioni dello stesso form
+                const form = label.closest('form');
+                const allOptions = form.querySelectorAll('.option-item');
+                allOptions.forEach(opt => opt.classList.remove('selected'));
+                
+                // Aggiungi la selezione all'opzione cliccata
+                label.classList.add('selected');
+                input.checked = true;
+            } else {
+                // Scelta multipla - toggle selection
+                if (input.checked) {
+                    label.classList.remove('selected');
+                    input.checked = false;
+                } else {
+                    label.classList.add('selected');
+                    input.checked = true;
+                }
+            }
         }
 
         // Gestione invio form con conferma
         document.querySelectorAll('form[id^="form-"]').forEach(form => {
             form.addEventListener('submit', function(e) {
-                const selectedOption = this.querySelector('input[name="opzione_id"]:checked');
                 const nome = this.querySelector('input[name="nome"]').value;
+                const optionsGrid = this.querySelector('.options-grid');
+                const tipo = optionsGrid.dataset.tipo;
                 
-                if (!selectedOption || !nome.trim()) {
+                let selectedOptions = [];
+                let selectedTexts = [];
+                
+                if (tipo === 'multipla') {
+                    const checkboxes = this.querySelectorAll('input[name="opzioni_id[]"]:checked');
+                    checkboxes.forEach(cb => {
+                        selectedOptions.push(cb.value);
+                        selectedTexts.push(cb.closest('.option-item').querySelector('.option-text').textContent);
+                    });
+                } else {
+                    const radio = this.querySelector('input[name="opzione_id"]:checked');
+                    if (radio) {
+                        selectedOptions.push(radio.value);
+                        selectedTexts.push(radio.closest('.option-item').querySelector('.option-text').textContent);
+                    }
+                }
+                
+                if (!nome.trim() || selectedOptions.length === 0) {
                     e.preventDefault();
                     alert('⚠️ Completa tutti i campi obbligatori prima di procedere!');
                     return;
                 }
                 
-                const optionText = selectedOption.closest('.option-item').querySelector('.option-text').textContent;
-                const confirmMessage = `🗳️ Confermi di voler votare per: "${optionText}"?\n\n⚠️ Non potrai modificare il tuo voto successivamente.`;
+                let confirmMessage;
+                if (selectedOptions.length > 1) {
+                    confirmMessage = `🗳️ Confermi di voler votare per le seguenti ${selectedOptions.length} opzioni?\n\n"${selectedTexts.join('"\n"')}"\n\n⚠️ Non potrai modificare i tuoi voti successivamente.`;
+                } else {
+                    confirmMessage = `🗳️ Confermi di voler votare per: "${selectedTexts[0]}"?\n\n⚠️ Non potrai modificare il tuo voto successivamente.`;
+                }
                 
                 if (!confirm(confirmMessage)) {
                     e.preventDefault();
@@ -536,6 +319,16 @@
                 }
             });
         }
+
+        // Inizializza lo stato delle opzioni già selezionate
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.option-item').forEach(item => {
+                const input = item.querySelector('input');
+                if (input && input.checked) {
+                    item.classList.add('selected');
+                }
+            });
+        });
     </script>
 </body>
 </html>

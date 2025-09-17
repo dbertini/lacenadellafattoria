@@ -184,6 +184,12 @@
             opacity: 0;
             cursor: pointer;
         }
+
+        .option-item input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
         .option-item.selected {
             border-color: #4299e1;
             background: #ebf8ff;

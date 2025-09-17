@@ -4,352 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Benvenuto in GeoTriangulator - Triangolazione Coordinate Avanzata</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
-        
-        /* Navigation Menu */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            padding: 15px 0;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-        }
-        nav .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 30px;
-        }
-        .logo {
-            font-size: 1.8em;
-            font-weight: bold;
-            background: linear-gradient(135deg, #4299e1, #3182ce);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .nav-links {
-            display: flex;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            gap: 30px;
-        }
-        .nav-links a {
-            text-decoration: none;
-            color: #4a5568;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            position: relative;
-            padding: 8px 16px;
-            border-radius: 20px;
-        }
-        .nav-links a:hover {
-            background: linear-gradient(135deg, #4299e1, #3182ce);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(66, 153, 225, 0.3);
-        }
-        .nav-links a.active {
-            background: linear-gradient(135deg, #48bb78, #38a169);
-            color: white;
-            box-shadow: 0 5px 15px rgba(72, 187, 120, 0.3);
-        }
-        
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            background: rgba(255,255,255,0.95);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            margin-top: 100px;
-            margin-bottom: 20px;
-        }
-        h1 {
-            text-align: center;
-            color: #4a5568;
-            margin-bottom: 30px;
-            font-size: 2.5em;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        /* Sezione aggiunta indirizzi */
-        .add-location-section {
-            background: linear-gradient(135deg, #4299e1, #3182ce);
-            color: white;
-            padding: 25px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        }
-        .add-location-section h2 {
-            margin: 0 0 20px 0;
-            font-size: 1.5em;
-        }
-        .input-group {
-            display: grid;
-            grid-template-columns: 2fr 2fr 1fr auto;
-            gap: 15px;
-            margin-bottom: 15px;
-            align-items: end;
-        }
-        .input-field {
-            display: flex;
-            flex-direction: column;
-        }
-        .input-field label {
-            font-size: 0.9em;
-            margin-bottom: 5px;
-            opacity: 0.9;
-        }
-        .input-field input {
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1em;
-            background: rgba(255,255,255,0.9);
-            transition: background 0.3s ease;
-        }
-        .input-field input:focus {
-            outline: none;
-            background: white;
-            box-shadow: 0 0 0 3px rgba(255,255,255,0.3);
-        }
-        
-        .locations-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-        .location-card {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border-left: 4px solid #4299e1;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-        }
-        .location-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-        }
-        .location-title {
-            font-weight: bold;
-            color: #2d3748;
-            font-size: 1.1em;
-            margin-bottom: 5px;
-        }
-        .location-address {
-            color: #718096;
-            font-size: 0.9em;
-            margin-bottom: 10px;
-        }
-        .location-coords {
-            color: #2b6cb0;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9em;
-        }
-        .delete-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #e53e3e;
-            color: white;
-            border: none;
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 0.8em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.3s ease;
-        }
-        .delete-btn:hover {
-            background: #c53030;
-        }
-        
-        .triangulation-result {
-            background: linear-gradient(135deg, #48bb78, #38a169);
-            color: white;
-            padding: 25px;
-            border-radius: 15px;
-            margin: 30px 0;
-            text-align: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        }
-        .triangulation-result h2 {
-            margin: 0 0 15px 0;
-            font-size: 1.8em;
-        }
-        .center-coords {
-            font-family: 'Courier New', monospace;
-            font-size: 1.2em;
-            background: rgba(255,255,255,0.2);
-            padding: 10px;
-            border-radius: 8px;
-            display: inline-block;
-            margin: 10px;
-        }
-        
-        /* Sezione ristoranti */
-        .restaurants-section {
-            background: linear-gradient(135deg, #ed8936, #dd6b20);
-            color: white;
-            padding: 25px;
-            border-radius: 15px;
-            margin: 30px 0;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        }
-        .restaurants-section h2 {
-            margin: 0 0 20px 0;
-            font-size: 1.8em;
-            text-align: center;
-        }
-        .restaurants-controls {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-        }
-        .radius-selector {
-            background: rgba(255,255,255,0.2);
-            border: none;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-        .radius-selector:focus {
-            outline: none;
-            background: rgba(255,255,255,0.3);
-        }
-        .radius-selector option {
-            color: #333;
-        }
-        
-        .map-container {
-            width: 100%;
-            height: 500px;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            margin-top: 20px;
-        }
-        #map {
-            width: 100%;
-            height: 100%;
-        }
-        .controls {
-            margin: 20px 0;
-            text-align: center;
-        }
-        .btn {
-            background: linear-gradient(135deg, #4299e1, #3182ce);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 1em;
-            margin: 0 10px 10px 10px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-        }
-        .btn.success {
-            background: linear-gradient(135deg, #48bb78, #38a169);
-        }
-        .btn.warning {
-            background: linear-gradient(135deg, #ed8936, #dd6b20);
-        }
-        .btn.danger {
-            background: linear-gradient(135deg, #e53e3e, #c53030);
-        }
-        
-        .loading {
-            display: inline-block;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        
-        .status-message {
-            margin-top: 15px;
-            padding: 10px;
-            border-radius: 8px;
-            text-align: center;
-            font-weight: bold;
-        }
-        .status-success {
-            background: rgba(72, 187, 120, 0.2);
-            color: #2f855a;
-            border: 2px solid #68d391;
-        }
-        .status-error {
-            background: rgba(229, 62, 62, 0.2);
-            color: #c53030;
-            border: 2px solid #fc8181;
-        }
-        .status-info {
-            background: rgba(66, 153, 225, 0.2);
-            color: #2b6cb0;
-            border: 2px solid #90cdf4;
-        }
-        
-        @media (max-width: 768px) {
-            .nav-container {
-                flex-direction: column;
-                gap: 20px;
-                padding: 0 20px;
-            }
-            .nav-links {
-                gap: 15px;
-            }
-            .container {
-                margin-top: 120px;
-                padding: 20px;
-            }
-            .input-group {
-                grid-template-columns: 1fr;
-            }
-            .restaurants-controls {
-                flex-direction: column;
-                align-items: center;
-            }
-        }
-        /* Footer */
-        .footer {
-            background: rgba(26, 32, 44, 0.9);
-            color: white;
-            text-align: center;
-            padding: 40px 20px;
-            backdrop-filter: blur(10px);
-        }
-    </style>
+    <?php require 'styles/style_troviamoci.php'; ?>
+
 </head>
 <body>
     <?php require 'menu.php'; ?>
@@ -419,6 +75,26 @@
             <div id="restaurants-results"></div>
         </div>
 
+        <!-- Sezione alberghi -->
+        <div class="alberghi-section">
+            <h2>🍽️ Alberghi nella Zona</h2>
+            <div class="alberghi-controls">
+                <select class="radius-selector" id="radius-selector-alberghi">
+                    <option value="1000">Entro 1 km</option>
+                    <option value="2000" selected>Entro 2 km</option>
+                    <option value="5000">Entro 5 km</option>
+                    <option value="10000">Entro 10 km</option>
+                    <option value="20000">Entro 20 km</option>
+                </select>
+                <button class="btn warning" onclick="searchAlberghi()">
+                    🔍 Cerca Alberghi
+                </button>
+                <button class="btn warning" onclick="showAlberghiOnMap()">
+                    🗺️ Visualizza Alberghi su Mappa
+                </button>
+            </div>
+            <div id="alberghi-results"></div>
+        </div>
        
 
         
@@ -624,16 +300,16 @@ async function searchRestaurants() {
         // - include node, way, relation
         // - cerca più tipologie di locali
         const query = `
-[out:json];
-(
-  node["amenity"~"restaurant|cafe|fast_food|food_court|pub|bar"]
-      (around:${radiusMeters},${center.lat},${center.lng});
-  way["amenity"~"restaurant|cafe|fast_food|food_court|pub|bar"]
-      (around:${radiusMeters},${center.lat},${center.lng});
-  relation["amenity"~"restaurant|cafe|fast_food|food_court|pub|bar"]
-      (around:${radiusMeters},${center.lat},${center.lng});
-);
-out center;
+                [out:json];
+                (
+                node["amenity"~"restaurant|cafe|fast_food|food_court|pub|bar"]
+                    (around:${radiusMeters},${center.lat},${center.lng});
+                way["amenity"~"restaurant|cafe|fast_food|food_court|pub|bar"]
+                    (around:${radiusMeters},${center.lat},${center.lng});
+                relation["amenity"~"restaurant|cafe|fast_food|food_court|pub|bar"]
+                    (around:${radiusMeters},${center.lat},${center.lng});
+                );
+                out center;
         `;
 
         const response = await fetch("https://overpass-api.de/api/interpreter", {
@@ -694,55 +370,104 @@ out center;
     }
 }
 
+// Cerca alberghi reali nella zona usando Overpass API
+async function searchAlberghi() {
+    // --- Leggi il valore in METRI dal selettore ---
+    const radiusMeters = parseFloat(document.getElementById('radius-selector-alberghi').value);
+    const radiusKm = radiusMeters / 1000; // solo per visualizzazione
 
+    const resultsDiv = document.getElementById('alberghi-results');
+    const center = calculateCenter(); // { lat, lng }
 
-        // Cerca ristoranti nella zona
-        function searchRestaurants2() {
-            const radius = document.getElementById('radius-selector').value;
-            const resultsDiv = document.getElementById('restaurants-results');
-            const center = calculateCenter();
-            
-            // Simulazione di ricerca ristoranti
+    resultsDiv.innerHTML = `
+        <div style="text-align: center; margin: 20px 0;">
+            <div class="loading" style="font-size: 2em; margin-bottom: 10px;">🔍</div>
+            <div>Ricerca Alberghi in corso...</div>
+        </div>
+    `;
+
+    try {
+        // Query Overpass:
+        // - include node, way, relation
+        // - cerca più tipologie di locali
+        const query = `
+                [out:json];
+                (
+                node["amenity"~"hotel|hostel|guest_house|motel"]
+                    (around:${radiusMeters},${center.lat},${center.lng});
+                way["amenity"~"hotel|hostel|guest_house|motel"]
+                    (around:${radiusMeters},${center.lat},${center.lng});
+                relation["amenity"~"hotel|hostel|guest_house|motel"]
+                    (around:${radiusMeters},${center.lat},${center.lng});
+                    
+                node["tourism"~"hotel|hostel|guest_house|resort"]
+                    (around:${radiusMeters},${center.lat},${center.lng});
+                way["tourism"~"hotel|hostel|guest_house|resort"]
+                    (around:${radiusMeters},${center.lat},${center.lng});
+                relation["tourism"~"hotel|hostel|guest_house|resort"]
+                    (around:${radiusMeters},${center.lat},${center.lng});
+                );
+                out center;
+        `;
+
+        const response = await fetch("https://overpass-api.de/api/interpreter", {
+            method: "POST",
+            body: query,
+            headers: { "Content-Type": "text/plain" }
+        });
+
+        const data = await response.json();
+        const elements = data.elements || [];
+
+        if (!elements.length) {
             resultsDiv.innerHTML = `
-                <div style="text-align: center; margin: 20px 0;">
-                    <div class="loading" style="font-size: 2em; margin-bottom: 10px;">🔍</div>
-                    <div>Ricerca ristoranti in corso...</div>
-                </div>
-            `;
-            
-            setTimeout(() => {
-                const mockRestaurants = [
-                    "🍕 Pizzeria del Centro",
-                    "🍝 Trattoria Nonna Rosa",
-                    "🥩 Steakhouse Premium",
-                    "🍜 Ristorante Giapponese Sakura",
-                    "🍴 Osteria del Borgo",
-                    "🦐 Ristorante di Pesce Marino",
-                    "🥗 Bistrot Vegetariano Verde"
-                ];
-                
-                const numResults = Math.floor(Math.random() * 5) + 3;
-                const selectedRestaurants = mockRestaurants
-                    .sort(() => 0.5 - Math.random())
-                    .slice(0, numResults);
-                
-                resultsDiv.innerHTML = `
-                    <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 10px;">
-                        <h3 style="margin: 0 0 10px 0;">Trovati ${numResults} ristoranti entro ${parseInt(radius)/1000} km:</h3>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
-                            ${selectedRestaurants.map(restaurant => 
-                                `<div style="background: rgba(255,255,255,0.1); padding: 8px; border-radius: 5px; text-align: center;">
-                                    ${restaurant}
-                                </div>`
-                            ).join('')}
-                        </div>
-                        <div style="margin-top: 15px; font-size: 0.9em; opacity: 0.9;">
-                            📍 Coordinate centro: ${center.lat.toFixed(4)}, ${center.lng.toFixed(4)}
-                        </div>
-                    </div>
-                `;
-            }, 2000);
+                <div style="padding:15px; background:rgba(255,255,255,0.2); border-radius:10px;">
+                    Nessun albergo trovato entro ${radiusKm} km.<br>
+                    📍 Coordinate centro: ${center.lat.toFixed(4)}, ${center.lng.toFixed(4)}
+                </div>`;
+            return;
         }
+
+        const iconByAmenity = {
+		  hotel: "🏨",
+		  motel: "🏩",
+		  resort: "🛎️",
+		  guest_house: "🏠",
+		  hostel: "🛌"
+		};
+
+		const listHtml = elements
+		  .filter(el => el.tags?.name) // scarta i "Locale senza nome"
+		  .map(el => {
+			const type = el.tags?.amenity || "sconosciuto";
+			const icon = iconByAmenity[type] || "🍽️"; // icona di fallback
+			const name = el.tags.name;
+			return `
+			  <div style="background: rgba(255,255,255,0.1); padding: 8px; border-radius: 5px; text-align: center;">
+				${icon} ${name} <span style="font-size:0.8em;opacity:0.7;">(${type})</span>
+			  </div>`;
+		  })
+		  .join("");
+        resultsDiv.innerHTML = `
+            <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 10px;">
+                <h3 style="margin: 0 0 10px 0;">
+                    Trovati ${elements.length} alberghi entro ${radiusKm} km:
+                </h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+                    ${listHtml}
+                </div>
+                <div style="margin-top: 15px; font-size: 0.9em; opacity: 0.9;">
+                    📍 Coordinate centro: ${center.lat.toFixed(4)}, ${center.lng.toFixed(4)}
+                </div>
+            </div>
+        `;
+    } catch (err) {
+        console.error(err);
+        resultsDiv.innerHTML = `<div style="color:red;">Errore durante la ricerca: ${err.message}</div>`;
+    }
+}
+
+        
 
         // Mostra ristoranti su Google Maps
         function showRestaurantsOnMap() {
@@ -751,6 +476,17 @@ out center;
             const radiusKm = parseInt(radius) / 1000;
             
             const query = encodeURIComponent(`ristoranti vicino ${center.lat},${center.lng}`);
+            const url = `https://www.google.com/maps/search/${query}/@${center.lat},${center.lng},${Math.max(12, 16 - radiusKm)}z`;
+            window.open(url, '_blank');
+        }
+
+        // Mostra Alberghi su Google Maps
+        function showAlberghiOnMap() {
+            const center = calculateCenter();
+            const radius = document.getElementById('radius-selector').value;
+            const radiusKm = parseInt(radius) / 1000;
+            
+            const query = encodeURIComponent(`alberghi vicino ${center.lat},${center.lng}`);
             const url = `https://www.google.com/maps/search/${query}/@${center.lat},${center.lng},${Math.max(12, 16 - radiusKm)}z`;
             window.open(url, '_blank');
         }

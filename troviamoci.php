@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Benvenuto in GeoTriangulator - Triangolazione Coordinate Avanzata</title>
+    <?php require 'titolo.php'; ?>
     <?php require 'styles/style_troviamoci.php'; ?>
 
 </head>

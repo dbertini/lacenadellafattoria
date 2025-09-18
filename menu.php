@@ -1,7 +1,7 @@
 <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <div class="logo">🌍 GeoTriangulator</div>
+            <div class="logo">La cena della Fattoria 🍴</div>
             <ul class="nav-links">
                 <li><a href="index.php">Home</a></li>
                 <li><a href="troviamoci.php">🎯 Troviamoci</a></li>
